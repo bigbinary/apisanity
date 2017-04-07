@@ -1,0 +1,32 @@
+!!!
+%html{lang: "en"}
+  %head
+    %meta{charset: "utf-8"}/
+    %meta{:content => "IE=Edge,chrome=1", "http-equiv" => "X-UA-Compatible"}/
+    %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %title= content_for?(:title) ? yield(:title) : "Apisanity"
+    = csrf_meta_tags
+    = stylesheet_link_tag "application", media: "all"
+  %body
+    .navbar.navbar-default.navbar-static-top{role: "navigation"}
+      .container-fluid
+        .navbar-header
+          %button.navbar-toggle{"data-target" => ".navbar-collapse", "data-toggle" => "collapse", :type => "button"}
+            %span.sr-only Toggle navigation
+            %span.icon-bar
+            %span.icon-bar
+            %span.icon-bar
+          %a.navbar-brand{href: "/"} Apisanity
+        .navbar-collapse.collapse
+          = render 'shared/nav'
+
+    .container
+      .row
+        = render 'shared/bootstrap_flash'
+    - if !current_user || controller_name == "registrations"
+      = yield
+    - else
+      #app-mount
+
+  = javascript_include_tag "application"
+  = javascript_pack_tag "application"

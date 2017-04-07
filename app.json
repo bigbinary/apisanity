@@ -1,0 +1,33 @@
+{
+  "name": "apisanity",
+  "scripts": {
+    "postdeploy": "bundle exec rake db:migrate && bundle exec rake db:purge_all_data_and_add_sample_data"
+  },
+  "env": {
+    "SECRET_KEY_BASE":{
+      "required":true
+    },
+    "RACK_ENV": {
+      "value": "staging"
+    },
+    "RAILS_ENV": {
+      "value": "staging"
+    },
+    "HEROKU_APP_NAME": {
+      "required": true
+    },
+    "LOG_LEVEL": {
+      "value": "DEBUG"
+    }
+  },
+  "formation": { },
+  "addons": [ "heroku-postgresql" ],
+  "buildpacks": [
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-nodejs.git"
+    },
+    {
+      "url": "https://github.com/heroku/heroku-buildpack-ruby.git"
+    }
+  ]
+}
