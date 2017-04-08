@@ -6,7 +6,7 @@ class ApiResponsesControllerTest < ActionController::TestCase
     mock_response = mock('RestClient::Response')
     mock_response.expects(:code).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
-    mock_response.expects(:headers).returns({content_type: 'application/json'})
+    mock_response.expects(:headers).returns({content_type: 'application/json', cache_control: 'max-age=0, private, must-revalidate'})
 
     RestClient::Request.expects(:execute).returns(mock_response)
 
@@ -15,7 +15,7 @@ class ApiResponsesControllerTest < ActionController::TestCase
     api_response = ApiResponse.last
     assert_equal '200', api_response.status_code
     assert_equal({"body"=>"{id: 1}"}, api_response.response)
-    assert_equal({"content_type" => 'application/json'}, api_response.response_headers)
+    assert_equal({'cache_control' => 'max-age=0, private, must-revalidate', "content_type" => 'application/json'}, api_response.response_headers)
     assert_equal({"some_request_key" => "some_request_value"}, api_response.request_headers)
   end
 

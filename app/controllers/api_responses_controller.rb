@@ -36,7 +36,7 @@ class ApiResponsesController < ApplicationController
       password: @api_response.password,
       assertions: @api_response.assertions,
       response: {
-        response_headers: @api_response.response_headers,
+        response_headers: @api_response.response_headers.sort.to_h,
         response_body: @api_response.response['body'],
         response_code: @api_response.status_code
       }
