@@ -70,6 +70,13 @@ GIT
       sass-rails
       sprockets (< 4.1)
 
+GIT
+  remote: https://github.com/jarrett/sanitize-url.git
+  revision: 17ca64b7a6a6bfcba06d0e8548e30484a42f1d5f
+  branch: master
+  specs:
+    sanitize-url (0.1.4)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -544,6 +551,7 @@ DEPENDENCIES
   devise (~> 4.2.0)
   email_prefixer
   email_validator
+  excon
   fog
   font-awesome-sass (~> 4.3.0)
   haml-rails
@@ -564,6 +572,7 @@ DEPENDENCIES
   rails_12factor
   rest-client
   rollbar
+  sanitize-url!
   sass-rails (>= 5.0.3)
   simple_form
   simplecov
@@ -578,4 +587,4 @@ RUBY VERSION
    ruby 2.3.0p0
 
 BUNDLED WITH
-   1.13.6
+   1.13.7
