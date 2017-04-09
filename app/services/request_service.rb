@@ -1,5 +1,6 @@
 class RequestService
   include ActiveModel::Validations
+  include SanitizeUrl
 
   attr_reader :url, :username, :password, :method, :response, :request_params, :request_headers, :request_body, :assertions
   attr_accessor :api_response
@@ -20,14 +21,10 @@ class RequestService
   def process
     if valid?
       begin
-        @response = RestClient::Request.execute(options)
+        connection = Excon.new(sanitize_url(url))
+        @response = connection.request(options)
         self.api_response = save_api_response
-      rescue RestClient::ExceptionWithResponse => e
-        @response = e.response
-        self.api_response = save_api_response
-      rescue URI::InvalidURIError
-        errors.add(:url, 'Invalid URL')
-      rescue SocketError => e
+      rescue Excon::Error::Socket => e
         errors.add(:url, 'Invalid URL or Domain')
       end
     end
@@ -40,7 +37,7 @@ class RequestService
                         method: method.upcase,
                         response: response_body,
                         response_headers: response.headers,
-                        status_code: response.code,
+                        status_code: response.status,
                         request_headers: request_headers,
                         request_params: request_params.is_a?(String) ? JSON.parse(request_params) : sanitized_request_params,
                         username: username,
@@ -72,7 +69,7 @@ class RequestService
   end
 
   def options
-    {url: url, method: method, :verify_ssl => false, headers: request_headers}.merge(authorization_options).merge(payload: request_params)
+    {method: method, :verify_ssl => false, headers: request_headers}.merge(authorization_options).merge(body: URI.encode_www_form(request_params))
   end
 
   def assertion_attributes
