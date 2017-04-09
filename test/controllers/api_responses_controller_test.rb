@@ -21,7 +21,7 @@ class ApiResponsesControllerTest < ActionController::TestCase
 
   def test_create_with_post_request_and_request_params
 
-    mock_response = mock('RestClient::Response')
+    mock_response = mock('Excon::Response')
     mock_response.expects(:status).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
     mock_response.expects(:headers).returns({content_type: 'application/json'})
@@ -43,7 +43,7 @@ class ApiResponsesControllerTest < ActionController::TestCase
 
   def test_create_with_put_request_and_request_body
 
-    mock_response = mock('RestClient::Response')
+    mock_response = mock('Excon::Response')
     mock_response.expects(:status).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
     mock_response.expects(:headers).returns({content_type: 'application/json'})
