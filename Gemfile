@@ -79,8 +79,6 @@ gem 'email_prefixer'
 # Attach comments to Active Record queries
 gem 'marginalia', github: 'basecamp/marginalia'
 
-
-gem 'rest-client'
 gem 'excon'
 gem 'sanitize-url', git: 'https://github.com/jarrett/sanitize-url.git', branch: 'master'
 
