@@ -3,12 +3,12 @@ require 'test_helper'
 class ApiResponsesControllerTest < ActionController::TestCase
 
   def test_create_success_with_get_request
-    mock_response = mock('RestClient::Response')
-    mock_response.expects(:code).returns(200)
+    mock_response = mock('Excon::Response')
+    mock_response.expects(:status).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
     mock_response.expects(:headers).returns({content_type: 'application/json', cache_control: 'max-age=0, private, must-revalidate'})
 
-    RestClient::Request.expects(:execute).returns(mock_response)
+    Excon::Connection.any_instance.stubs(:request).returns(mock_response)
 
     post :create, params: { url: url, method: 'get', request_headers: {"0" => {'key' => "some_request_key", 'value' => 'some_request_value'}} }
 
@@ -21,12 +21,12 @@ class ApiResponsesControllerTest < ActionController::TestCase
 
   def test_create_with_post_request_and_request_params
 
-    mock_response = mock('RestClient::Response')
-    mock_response.expects(:code).returns(200)
+    mock_response = mock('Excon::Response')
+    mock_response.expects(:status).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
     mock_response.expects(:headers).returns({content_type: 'application/json'})
 
-    RestClient::Request.expects(:execute).returns(mock_response)
+    Excon::Connection.any_instance.stubs(:request).returns(mock_response)
 
     post :create, params: { url: url,
                             method: 'post',
@@ -43,14 +43,14 @@ class ApiResponsesControllerTest < ActionController::TestCase
 
   def test_create_with_put_request_and_request_body
 
-    mock_response = mock('RestClient::Response')
-    mock_response.expects(:code).returns(200)
+    mock_response = mock('Excon::Response')
+    mock_response.expects(:status).returns(200)
     mock_response.expects(:body).returns("{id: 1}")
     mock_response.expects(:headers).returns({content_type: 'application/json'})
 
-    RestClient::Request.expects(:execute).returns(mock_response)
+    Excon::Connection.any_instance.stubs(:request).returns(mock_response)
 
-    post :create, params: { url: url, method: 'put', request_body: '{"post": {"title": "New title"}}' }
+    post :create, params: { url: url, method: 'put', request_body: {"post": {"title": "New title"}} }
 
     api_response = ApiResponse.last
     assert_equal '200', api_response.status_code

@@ -213,7 +213,7 @@ const Body = (props) => {
 };
 
 const ParsedResponse = ({ response }) => {
-  const contentType = response.response_headers.content_type;
+  const contentType = response.response_headers['Content-Type'];
   if (contentType && contentType.match(/json/g)) {
     return <ParsedJSONResponse body={response.response_body} />;
   } else {
