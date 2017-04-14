@@ -1,7 +1,13 @@
 class ApiResponsesController < ApplicationController
 
   before_action :get_api_response, only: [:show]
-  skip_before_action :verify_authenticity_token
+  before_action :authenticate_user!, only: :index
+  before_action :load_api_responses, only: :index
+  skip_before_action :verify_authenticity_token, only: :create
+
+  def index
+    @router_removal_required = true
+  end
 
   def show
     render json: api_response
@@ -47,6 +53,10 @@ class ApiResponsesController < ApplicationController
     api_request_parser_service = ApiRequestParserService.new(params)
     request_headers = api_request_parser_service.process_headers
     request_parameters = api_request_parser_service.process_parameters
-    params.merge(request_params: request_parameters).merge(request_headers: request_headers).permit!.to_h
+    params.merge(request_params: request_parameters).merge(request_headers: request_headers, user_id: current_user.id).permit!.to_h
+  end
+
+  def load_api_responses
+    @api_responses = current_user.api_responses
   end
 end

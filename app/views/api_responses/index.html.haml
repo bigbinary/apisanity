@@ -1,0 +1,14 @@
+= stylesheet_link_tag 'api_responses/index'
+
+.container.api-request-table
+  .panel.panel-default
+    .panel-heading ApiSanity Requests History
+    %table.table
+      %thead
+        %tr
+          %th #
+          %th HTTP Method
+          %th Url
+          %th Hit Time
+          %th
+      %tbody= render partial: 'list'

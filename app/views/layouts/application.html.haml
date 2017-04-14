@@ -23,7 +23,7 @@
     .container
       .row
         = render 'shared/bootstrap_flash'
-    - if !current_user || controller_name == "registrations"
+    - if !current_user || controller_name == "registrations" || @router_removal_required == true
       = yield
     - else
       #app-mount

@@ -1,0 +1,8 @@
+- @api_responses.each_with_index do |api_response, index|
+  %tr
+    %th= index + 1
+    %td= api_response.method
+    %td= api_response.url
+    %td= time_ago_in_words(api_response.created_at)
+    %td
+      %a{:href => '/#/api_responses/' + api_response.token} Show

@@ -2,7 +2,7 @@ class RequestService
   include ActiveModel::Validations
   include SanitizeUrl
 
-  attr_reader :url, :username, :password, :method, :response, :request_params, :request_headers, :request_body, :assertions
+  attr_reader :url, :username, :password, :method, :response, :request_params, :request_headers, :request_body, :assertions, :user_id
   attr_accessor :api_response
 
   validates :url, :method, presence: true
@@ -16,6 +16,7 @@ class RequestService
     @request_body = options[:request_body]
     @request_headers = options[:request_headers]
     @assertions = options[:assertions]
+    @user_id = options[:user_id]
   end
 
   def process
@@ -42,6 +43,7 @@ class RequestService
                         request_params: request_params.is_a?(String) ? JSON.parse(request_params) : sanitized_request_params,
                         username: username,
                         password: password,
+                        user_id: user_id,
                         request_body: request_body }.merge(assertion_attributes)
                        )
   end
