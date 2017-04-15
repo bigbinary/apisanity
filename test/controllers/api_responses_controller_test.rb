@@ -63,6 +63,8 @@ class ApiResponsesControllerTest < ActionController::TestCase
     get :show, params: { id: api_response.token }
 
     expected_response = {
+      token: 'abcdefghijk',
+      favourite: false,
       url: "http://example.com",
       httpMethod: "POST",
       requestParams: {"user[name]": "John"},

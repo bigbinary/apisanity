@@ -6,6 +6,7 @@ import uuid from 'uuid';
 
 import ApiRequestForm from '../apiForm';
 import ParsedJSONResponse from './parsed_json_response';
+import Favourite from './favourite';
 
 class HashData {
   static parse(data) {
@@ -61,6 +62,8 @@ class ApiResponse extends React.Component {
       url: url, context: this, dataType: 'json', type: 'GET'
     }).done(function (data) {
       let requestData = {
+        token: data.token,
+        favouriteState: data.favourite,
         url: data.url,
         method: data.httpMethod,
         request_body: data.requestBody,
@@ -154,7 +157,7 @@ const ApiResponseView = ({ response, requestData, activeTab, changeActiveTab, as
     <div>
       <ApiRequestForm {...requestData} />
       <div className="api-res-form__response">
-        <h3>Response</h3>
+        <h3>Response<FavouriteIcon requestData={requestData} /></h3>
         <HTTPStatus value={response.response_code} />
         <p><span className="api-res-form__label">Date:</span> {moment().format('llll')}</p>
         <AssertionView assertions={requestData.assertions} assertionFailureText={assertionFailureText} />
@@ -210,6 +213,14 @@ const Body = (props) => {
   return (
     <ParsedResponse {...props} />
   );
+};
+
+const FavouriteIcon = (props) => {
+  if(!(props.requestData.token == undefined)) {
+    return (
+      <Favourite token={props.requestData.token} favouriteState={props.requestData.favouriteState} />
+    );
+  }
 };
 
 const ParsedResponse = ({ response }) => {
