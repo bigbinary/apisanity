@@ -12,7 +12,7 @@ class Favourite extends React.Component {
   }
 
   favouriteStarClass() {
-    if(this.state.favouriteState == true) {
+    if (this.state.favouriteState === true) {
       return 'glyphicon-star';
     }
     else {
@@ -21,7 +21,7 @@ class Favourite extends React.Component {
   }
 
   toggleFavourite() {
-    if(this.state.favouriteState == false) {
+    if (this.state.favouriteState === false) {
       this.updateFavouriteState(true);
     }
     else {
