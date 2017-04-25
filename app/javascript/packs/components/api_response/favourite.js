@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router';
 
 class Favourite extends React.Component {
   constructor(props) {
@@ -45,7 +44,7 @@ class Favourite extends React.Component {
 
   render() {
     return(
-      <Link className={"glyphicon star " + this.favouriteStarClass()} onClick={this.toggleFavourite} />
+      <a class={"glyphicon star " + this.favouriteStarClass()} onClick={this.toggleFavourite}></a>
     )
   }
 }

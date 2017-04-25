@@ -68,7 +68,7 @@ class ApiResponsesController < ApplicationController
   end
 
   def load_api_responses
-    @api_responses = current_user.api_responses.order(created_at: :desc)
+    @api_responses = current_user.api_responses.select(:id, :token, :favourite, :url, :method, :created_at).order(created_at: :desc)
   end
 
   def permitted_params_for_update

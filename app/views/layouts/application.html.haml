@@ -29,4 +29,5 @@
       #app-mount
 
   = javascript_include_tag "application"
-  = javascript_pack_tag "application"
+  - if @router_removal_required != true
+    = javascript_pack_tag "application"
