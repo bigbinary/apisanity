@@ -1,7 +1,8 @@
 class ApiResponsesController < ApplicationController
 
-  before_action :get_api_response, only: [:show, :update]
-  before_action :authenticate_user!, only: :index
+  before_action :get_api_response, only: :show
+  before_action :load_response_for_update, only: :update
+  before_action :authenticate_user!, only: [:index, :create, :update]
   before_action :load_api_responses, only: :index
   before_action :filter_by_favourite, if: -> { params[:favourite] == 'true' }
   skip_before_action :verify_authenticity_token, only: [:create, :update]
@@ -40,6 +41,12 @@ class ApiResponsesController < ApplicationController
     end
   end
 
+  def load_response_for_update
+    unless @api_response = current_user.api_responses.find_by({token: params[:id]})
+      render json: {error: "Invalid Page"}, status: 404
+    end
+  end
+
   def api_response
     {
       token: @api_response.token,
@@ -64,7 +71,7 @@ class ApiResponsesController < ApplicationController
     api_request_parser_service = ApiRequestParserService.new(params)
     request_headers = api_request_parser_service.process_headers
     request_parameters = api_request_parser_service.process_parameters
-    params.merge(request_params: request_parameters).merge(request_headers: request_headers, user_id: current_user.try(:id)).permit!.to_h
+    params.merge(request_params: request_parameters).merge(request_headers: request_headers, user_id: current_user.id).permit!.to_h
   end
 
   def load_api_responses

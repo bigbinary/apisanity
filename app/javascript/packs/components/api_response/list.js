@@ -16,7 +16,7 @@ class List extends React.Component {
       <table className='table'>
         <TableHeader headers={this.state.headers} />
         <tbody>
-          {this.state.elements.map(function(object, i){
+          {this.state.elements.map(function(object, i) {
             return(
               <ObjectRow token={object.token} favouriteState={object.favourite} method={object.method} url={object.url} createdAt={object.created_at} />
             );
