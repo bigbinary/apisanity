@@ -4,22 +4,13 @@ class Favourite extends React.Component {
   constructor(props) {
     super(props);
     this.toggleFavourite = this.toggleFavourite.bind(this);
-    this.setState({
+    this.state = {
       favouriteState: this.props.favouriteState,
       token: props.token
-    });
+    };
   }
 
-  favouriteStarClass() {
-    if (this.state.favouriteState === true) {
-      return 'glyphicon-star';
-    }
-    else {
-      return 'glyphicon-star-empty';
-    }
-  }
-
-  toggleFavourite() {
+  toggleFavourite () {
     if (this.state.favouriteState === false) {
       this.updateFavouriteState(true);
     }
@@ -43,8 +34,9 @@ class Favourite extends React.Component {
   }
 
   render() {
+    const favouriteStarClass = this.state.favouriteState ? 'glyphicon-star' : 'glyphicon-star-empty'
     return(
-      <a class={"glyphicon star " + this.favouriteStarClass()} onClick={this.toggleFavourite}></a>
+      <a class={"glyphicon star " + favouriteStarClass} onClick={this.toggleFavourite}></a>
     )
   }
 }

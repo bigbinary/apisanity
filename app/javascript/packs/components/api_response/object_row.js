@@ -4,25 +4,15 @@ import Favourite from './favourite';
 import TimeAgo from 'react-timeago'
 
 class ObjectRow extends React.Component {
-  constructor(props) {
-    super(props);
-    this.setState({
-      token: this.props.token,
-      method: this.props.method,
-      url: this.props.url,
-      createdAt: this.props.createdAt,
-      favouriteState: this.props.favouriteState
-    })
-  }
-
   render() {
+    const {token, method, url, createdAt, favouriteState} = this.props
     return(
       <tr>
-        <td><Favourite token={this.state.token} favouriteState={this.state.favouriteState} /></td>
-        <td>{this.state.method}</td>
-        <td>{this.state.url}</td>
-        <td><TimeAgo date={new Date(this.state.createdAt)} /></td>
-        <td><Link href={'/#/api_responses/' + this.state.token}>Show</Link></td>
+        <td><Favourite token={token} favouriteState={favouriteState} /></td>
+        <td>{method}</td>
+        <td>{url}</td>
+        <td><TimeAgo date={new Date(createdAt)} /></td>
+        <td><Link href={'/#/api_responses/' + token}>Show</Link></td>
       </tr>
     )
   }

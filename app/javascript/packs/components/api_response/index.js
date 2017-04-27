@@ -216,9 +216,10 @@ const Body = (props) => {
 };
 
 const FavouriteIcon = (props) => {
-  if (props.requestData.token !== undefined) {
+  const {requestData: {token, favouriteState}} = props;
+  if (token !== undefined) {
     return (
-      <Favourite token={props.requestData.token} favouriteState={props.requestData.favouriteState} />
+      <Favourite token={token} favouriteState={favouriteState} />
     );
   }
 };
