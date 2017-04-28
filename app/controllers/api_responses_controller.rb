@@ -1,8 +1,8 @@
 class ApiResponsesController < ApplicationController
 
+  before_action :authenticate_user!, only: [:index, :create, :update]
   before_action :get_api_response, only: :show
   before_action :load_response_for_update, only: :update
-  before_action :authenticate_user!, only: [:index, :create, :update]
   before_action :load_api_responses, only: :index
   before_action :filter_by_favourite, if: -> { params[:favourite] == 'true' }
   skip_before_action :verify_authenticity_token, only: [:create, :update]

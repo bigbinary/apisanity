@@ -11,32 +11,30 @@ class Favourite extends React.Component {
   }
 
   toggleFavourite () {
-    if (this.state.favouriteState === false) {
-      this.updateFavouriteState(true);
-    }
-    else {
-      this.updateFavouriteState(false);
-    }
+    this.updateFavouriteState(!this.state.favouriteState);
   }
 
   updateFavouriteState(favouriteState) {
-    $.ajax({
-      url: '/api_responses/' + this.state.token,
-      context: this,
-      data: $.param({ api_response: { favourite: favouriteState } }),
-      dataType: 'json',
-      type: 'PATCH'
-    }).done(function (data){
-      this.setState({
-        favouriteState: data.favourite
-      });
-    })
+    fetch(`/api_responses/${this.state.token}`, {
+      method: 'PATCH',
+      body: JSON.stringify({api_response: {favourite: favouriteState}}),
+      credentials: 'include',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }).then(function(response) {
+        return response.json();
+    }).then(function(data) {
+        this.setState({
+          favouriteState: data.favourite
+        });
+    }.bind(this))
   }
 
   render() {
     const favouriteStarClass = this.state.favouriteState ? 'glyphicon-star' : 'glyphicon-star-empty'
     return(
-      <a class={"glyphicon star " + favouriteStarClass} onClick={this.toggleFavourite}></a>
+      <a class={`glyphicon star ${favouriteStarClass}`} onClick={this.toggleFavourite}></a>
     )
   }
 }

@@ -12,7 +12,7 @@ class ObjectRow extends React.Component {
         <td>{method}</td>
         <td>{url}</td>
         <td><TimeAgo date={new Date(createdAt)} /></td>
-        <td><Link href={'/#/api_responses/' + token}>Show</Link></td>
+        <td><Link href={`/#/api_responses/${token}`}>Show</Link></td>
       </tr>
     )
   }
