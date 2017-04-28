@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+  api_responses:
+    update:
+      success: 'Api Response updated successfully.'

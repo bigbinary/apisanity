@@ -1,0 +1,8 @@
+= stylesheet_link_tag 'api_responses/index'
+= hidden_field_tag 'elements', @api_responses.to_json
+
+.container.api-request-table
+  .panel.panel-default
+    .panel-heading APIs History
+    #response-list
+= javascript_pack_tag "api_response_index"

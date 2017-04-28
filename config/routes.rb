@@ -49,7 +49,7 @@ Apisanity::Application.routes.draw do
     end
   end
 
-  resources :api_responses, only: [:show, :create]
+  resources :api_responses, only: [:show, :create, :index, :update]
 
 
   root 'api_requests#index'

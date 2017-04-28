@@ -1,6 +1,8 @@
 class ApiResponse < ApplicationRecord
   has_secure_token
   validates :url, :method, presence: true
+
+  belongs_to :user
   has_many :assertions, class_name: 'ApiAssertion'
 
   accepts_nested_attributes_for :assertions, reject_if: proc {|attributes| attributes['key'].blank? && attributes['value'].blank? }

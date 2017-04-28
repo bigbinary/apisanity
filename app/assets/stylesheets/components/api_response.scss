@@ -37,3 +37,15 @@
   font-weight: bold;
   margin-right: 4px;
 }
+
+a.glyphicon-star {
+  color: gold;
+  text-decoration: none;
+  cursor: pointer;
+  padding-left: 15px;
+}
+
+a.glyphicon-star-empty {
+  @extend a.glyphicon-star;
+  color: black;
+}
