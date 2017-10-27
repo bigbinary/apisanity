@@ -113,3 +113,6 @@ gem 'sshkit'
 
 # application server
 gem 'puma', '~> 3.2'
+
+# To enable CORS requests
+gem 'rack-cors', :require => 'rack/cors'
